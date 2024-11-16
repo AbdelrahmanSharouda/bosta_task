@@ -39,14 +39,14 @@ extract = PythonOperator(
     task_id='extraction',
     dag=dag,
     python_callable=transformations.extract,
-    on_failure_callback=transformations.failure_notification
+    on_failure_callback=failure_notification
     )
 
-flatten = PythonOperator(
-    task_id='transformation',
+transform_load = PythonOperator(
+    task_id='transform and loads',
     dag=dag,
-    python_callable=transformations.flatten,
-    on_failure_callback=transformations.failure_notification
-)
+    python_callable=transformations.transform_load,
+    on_failure_callback=failure_notification
+    )
 
-extract >> flatten
+extract >> transform_load

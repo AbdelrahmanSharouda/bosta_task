@@ -1,4 +1,4 @@
-version: '3'
+# version: '3'
 
 x-airflow-common:
   &airflow-common
@@ -6,8 +6,6 @@ x-airflow-common:
     context: .
     dockerfile: Dockerfile
   image: custom-airflow:2.7.1-python3.9
-  env_file:
-    - airflow.env
   volumes:
     - ./config:/opt/airflow/config
     - ./dags:/opt/airflow/dags
@@ -30,7 +28,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: airflow_reddit
+      POSTGRES_DB: airflow
       POSTGRES_PORT: 5432
     ports:
       - "5432:5432"
