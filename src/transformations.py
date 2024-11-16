@@ -17,24 +17,27 @@ def flatten(doc, parent_key='', sep='_'):
             items.append((new_key,v))
     return dict(items)
 
-with open(r'C:\Users\magdy\boodi\origin\data\raw\raw_json.json') as file:
-    data = json.load(file)
+def extract():
+    with open(r'C:\Users\magdy\boodi\origin\data\raw\raw_json.json') as file:
+        data = json.load(file)
 
-jdata = [flatten(line) for line in data]   
-df = pd.DataFrame(jdata)
-print(df.info())
+    jdata = [flatten(line) for line in data]   
+    df = pd.DataFrame(jdata)
+    print(df.info())
 
 
-# Too many columns with missing values.
-# Extra step to clean the columns.
-threshold = 0.95  # Adjust this value based on your needs (95% missing values)
-min_count = int(len(df) * (1 - threshold)) 
-df = df.dropna(axis=1, thresh=min_count)
+    # Too many columns with missing values.
+    # Extra step to clean the columns.
+    threshold = 0.95  # Adjust this value based on your needs (95% missing values)
+    min_count = int(len(df) * (1 - threshold)) 
+    df = df.dropna(axis=1, thresh=min_count)
 
-# Could also be concatenated by a comma-delimeter 
+    # Could also be concatenated by a comma-delimeter 
 
-# Optional: Fill remaining NA values
-# df = df.fillna('')  # or df.fillna(0) for numeric columns
-print(df.info())
+    # Optional: Fill remaining NA values
+    # df = df.fillna('')  # or df.fillna(0) for numeric columns
+    print(df.info())
 
-# df.to_csv(r'C:\Users\magdy\boodi\origin\data\flattened\flattened.csv')
+    df.to_csv(r'C:\Users\magdy\boodi\origin\data\flattened\flattened.csv')
+
+    
