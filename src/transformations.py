@@ -39,5 +39,3 @@ def extract():
     print(df.info())
 
     df.to_csv(r'C:\Users\magdy\boodi\origin\data\flattened\flattened.csv')
-
-    
