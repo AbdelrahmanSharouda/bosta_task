@@ -17,10 +17,9 @@ def flatten(doc, parent_key='', sep='_'):
             items.append((new_key,v))
     return dict(items)
 
-
-with open(r'D:\python_files\Bosta\data\raw\raw.json') as file:
+with open(r'C:\Users\magdy\boodi\origin\data\raw\raw_json.json') as file:
     data = json.load(file)
 
-jdata = flatten(data)
-df = pd.DataFrame.from_dict(jdata, orient='index', columns=['value'])
-df.to_csv(r'D:\python_files\Bosta\data\flattened\flattened.csv')
+jdata = [flatten(line) for line in data]   
+df = pd.DataFrame(jdata)
+df.to_csv(r'C:\Users\magdy\boodi\origin\data\flattened\flattened.csv')
