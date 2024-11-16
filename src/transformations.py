@@ -31,6 +31,8 @@ threshold = 0.95  # Adjust this value based on your needs (95% missing values)
 min_count = int(len(df) * (1 - threshold)) 
 df = df.dropna(axis=1, thresh=min_count)
 
+# Could also be concatenated by a comma-delimeter 
+
 # Optional: Fill remaining NA values
 # df = df.fillna('')  # or df.fillna(0) for numeric columns
 print(df.info())
