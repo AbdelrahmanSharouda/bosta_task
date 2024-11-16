@@ -1,4 +1,5 @@
 import pandas as pd
+import json
 
 def flatten(doc, parent_key='', sep='_'):
     items = []
@@ -11,7 +12,15 @@ def flatten(doc, parent_key='', sep='_'):
                 if isinstance(sub_item,dict):
                     items.extend(flatten(sub_item, f'{new_key}{sep}{i}', sep=sep).items())
                 else:
-                    items.append(f"{new_key}{sep}{i}", sub_item)
+                    items.append((f"{new_key}{sep}{i}", sub_item))
         else:
-            items.append(new_key,v)
-    return (items)
+            items.append((new_key,v))
+    return dict(items)
+
+
+with open(r'D:\python_files\Bosta\data\raw\raw.json') as file:
+    data = json.load(file)
+
+jdata = flatten(data)
+df = pd.DataFrame.from_dict(jdata, orient='index', columns=['value'])
+df.to_csv(r'D:\python_files\Bosta\data\flattened\flattened.csv')
