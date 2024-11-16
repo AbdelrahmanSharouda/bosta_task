@@ -22,4 +22,17 @@ with open(r'C:\Users\magdy\boodi\origin\data\raw\raw_json.json') as file:
 
 jdata = [flatten(line) for line in data]   
 df = pd.DataFrame(jdata)
-df.to_csv(r'C:\Users\magdy\boodi\origin\data\flattened\flattened.csv')
+print(df.info())
+
+
+# Too many columns with missing values.
+# Extra step to clean the columns.
+threshold = 0.95  # Adjust this value based on your needs (95% missing values)
+min_count = int(len(df) * (1 - threshold)) 
+df = df.dropna(axis=1, thresh=min_count)
+
+# Optional: Fill remaining NA values
+# df = df.fillna('')  # or df.fillna(0) for numeric columns
+print(df.info())
+
+# df.to_csv(r'C:\Users\magdy\boodi\origin\data\flattened\flattened.csv')
